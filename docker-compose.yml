@@ -1,11 +1,29 @@
-version: "3.7"
+version: "3"
 
 services:
-    proxy:
-        build: .
-        image: decentralize/caching-proxy
-        environment:
-            UPSTREAM: http://google.com
-            MAX_SIZE: 500m
+    # GraphQL server 01
+    node-app:
+        build:
+            context: ./node-app
+        container_name: node-app
+        # ports:
+        #   - 3001:4000
+        # env_file: graphql_var.env
+        # depends_on:
+        # - payment-api
+        restart: always
+
+    # Nginx reverse proxy
+    nginx:
+        build: ./nginx
+        container_name: nginx
         ports:
-            - 8088:80/tcp
+            - 80:80
+            # - 443:443 #ssl
+        depends_on:
+            - node-app
+
+        restart: always
+        # volumes:
+
+        command: '/bin/sh -c ''while :; do sleep 6h & wait $${!}; nginx -s reload; done & nginx -g "daemon off;"'''
