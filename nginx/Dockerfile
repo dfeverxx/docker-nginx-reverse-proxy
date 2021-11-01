@@ -12,6 +12,7 @@ FROM nginx:1-alpine
 # COPY ./sites-available /etc/nginx/sites-available
 
 COPY nginx.conf /etc/nginx/
+COPY ../data/cahe /data/nginx/cache
 # COPY docker-entrypoint.sh /
 # RUN chmod +x /docker-entrypoint.sh
 # ENV CLIENT_MAX_BODY_SIZE 20M
