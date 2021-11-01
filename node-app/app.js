@@ -7,6 +7,7 @@ app.get("/", (req, res) => {
 	console.log("Hit on node");
 	res.send("Hello World!");
 });
+
 app.post("/", (req, res) => {
 	console.log("Hit on node", req.body);
 	res.send("Hello World!");
