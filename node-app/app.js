@@ -31,6 +31,14 @@ app.post("/", (req, res) => {
 			res.json(error);
 		});
 });
+app.post("/error", (req, res) => {
+	console.log("Hit on node", req.body);
+	if (req.body.error === "true") {
+		res.status(500).send("Error");
+	} else {
+		res.json(req.body);
+	}
+});
 
 app.listen(port, () => {
 	console.log(`Example app listening at http://localhost:${port}`);
